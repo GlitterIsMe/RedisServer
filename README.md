@@ -1,7 +1,7 @@
 # RedisServer
 a simple redis server base on TiKV
 
-# caution
+# CAUTION
 only surpport string on raw API
 
 # For TiKV parts 
