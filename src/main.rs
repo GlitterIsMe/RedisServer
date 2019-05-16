@@ -10,6 +10,8 @@ mod redis_server;
 mod simple_mem_db;
 mod executor;
 
+mod tikv;
+
 fn main(){
     let addr = env::args().nth(1).unwrap_or("127.0.0.1:8080".to_string());
     let listener = TcpListener::bind(&addr).unwrap();

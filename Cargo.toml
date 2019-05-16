@@ -9,9 +9,12 @@ edition = "2018"
 [dependencies]
 tokio = "0.1"
 threadpool = "1.7.1"
-#tikv-client = "~0.1"
 futures = "0.1"
 
-[dependencies.tikv-client]
-git = "https://github.com/GlitterIsMe/client-rust.git"
-branch  = "master"
+grpcio = { version = "0.4", features = [ "secure" ] }
+protobuf = "~2.1"
+
+
+[dependencies.kvproto]
+git = "https://github.com/pingcap/kvproto.git"
+branch  = "raft-0.5.0"
