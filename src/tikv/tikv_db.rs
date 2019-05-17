@@ -159,6 +159,7 @@ mod test{
         let tikv_db = TikvDB::connect(end_point).unwrap();
     }
 
+    #[test]
     fn test_tikv_basic_put_get(){
         let end_point = vec!["127.0.0.1:2379".to_string()];
         let mut tikv_db = TikvDB::connect(end_point).unwrap();

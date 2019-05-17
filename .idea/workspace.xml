@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cd30105b-0038-4053-a82c-2ef446bf41a5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/executor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/executor.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redis_server.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/redis_server.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tikv/tikv_db.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/tikv_db.rs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -33,8 +30,7 @@
     <select />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -50,16 +46,16 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/redis_server.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
+            <state relative-caret-position="488">
               <caret line="150" selection-start-line="150" selection-end-line="150" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/executor.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2242">
+            <state relative-caret-position="1783">
               <caret line="506" column="21" selection-start-line="506" selection-start-column="21" selection-end-line="506" selection-end-column="21" />
             </state>
           </provider>
@@ -79,11 +75,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tikv/tikv_db.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="161" column="12" selection-start-line="161" selection-start-column="12" selection-end-line="161" selection-end-column="12" />
+            <state relative-caret-position="335">
+              <caret line="162" column="43" selection-start-line="162" selection-start-column="43" selection-end-line="162" selection-end-column="43" />
             </state>
           </provider>
         </entry>
@@ -146,8 +142,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/tikv/tikv_client.rs" />
         <option value="$PROJECT_DIR$/src/redis_server.rs" />
-        <option value="$PROJECT_DIR$/src/tikv/tikv_db.rs" />
         <option value="$PROJECT_DIR$/src/executor.rs" />
+        <option value="$PROJECT_DIR$/src/tikv/tikv_db.rs" />
       </list>
     </option>
   </component>
@@ -224,7 +220,7 @@
       <option name="presentableId" value="Default" />
       <updated>1557715037200</updated>
       <workItem from="1557715051608" duration="76416000" />
-      <workItem from="1558057457593" duration="2956000" />
+      <workItem from="1558057457593" duration="3258000" />
     </task>
     <task id="LOCAL-00001" summary="simple redis server base on TiKV">
       <created>1557933686497</created>
@@ -268,11 +264,25 @@
       <option name="project" value="LOCAL" />
       <updated>1558062695001</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="modify test fn name">
+      <created>1558062991332</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1558062991332</updated>
+    </task>
+    <task id="LOCAL-00008" summary="modify test fn name">
+      <created>1558063179257</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1558063179257</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="79372000" />
+    <option name="totallyTimeSpent" value="79674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -316,7 +326,8 @@
     <MESSAGE value="simple redis server base on TiKV" />
     <MESSAGE value="build pass" />
     <MESSAGE value="add simple tikv client test" />
-    <option name="LAST_COMMIT_MESSAGE" value="add simple tikv client test" />
+    <MESSAGE value="modify test fn name" />
+    <option name="LAST_COMMIT_MESSAGE" value="modify test fn name" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -400,24 +411,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/executor.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1783">
+          <caret line="506" column="21" selection-start-line="506" selection-start-column="21" selection-end-line="506" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/redis_server.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
+        <state relative-caret-position="488">
           <caret line="150" selection-start-line="150" selection-end-line="150" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tikv/tikv_db.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="161" column="12" selection-start-line="161" selection-start-column="12" selection-end-line="161" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/executor.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2242">
-          <caret line="506" column="21" selection-start-line="506" selection-start-column="21" selection-end-line="506" selection-end-column="21" />
+        <state relative-caret-position="335">
+          <caret line="162" column="43" selection-start-line="162" selection-start-column="43" selection-end-line="162" selection-end-column="43" />
         </state>
       </provider>
     </entry>
