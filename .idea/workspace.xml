@@ -4,9 +4,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd30105b-0038-4053-a82c-2ef446bf41a5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="cd30105b-0038-4053-a82c-2ef446bf41a5" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/src/redis_server.rs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="179">
-              <caret line="85" column="7" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+              <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -77,8 +75,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/executor.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
+            <state relative-caret-position="170">
+              <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -150,12 +148,12 @@
         <option value="$PROJECT_DIR$/src/tikv/mod.rs" />
         <option value="$PROJECT_DIR$/Cargo.toml" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/redis_server.rs" />
         <option value="$PROJECT_DIR$/src/tikv/tikv_client.rs" />
         <option value="$PROJECT_DIR$/src/main.rs" />
         <option value="$PROJECT_DIR$/src/tikv/context.rs" />
         <option value="$PROJECT_DIR$/src/tikv/pd_client.rs" />
         <option value="$PROJECT_DIR$/src/tikv/tikv_db.rs" />
+        <option value="$PROJECT_DIR$/src/redis_server.rs" />
         <option value="$PROJECT_DIR$/src/executor.rs" />
       </list>
     </option>
@@ -233,7 +231,7 @@
       <option name="presentableId" value="Default" />
       <updated>1557715037200</updated>
       <workItem from="1557715051608" duration="76416000" />
-      <workItem from="1558057457593" duration="11705000" />
+      <workItem from="1558057457593" duration="12258000" />
     </task>
     <task id="LOCAL-00001" summary="simple redis server base on TiKV">
       <created>1557933686497</created>
@@ -361,11 +359,32 @@
       <option name="project" value="LOCAL" />
       <updated>1558080801736</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="- debug">
+      <created>1558081312731</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1558081312731</updated>
+    </task>
+    <task id="LOCAL-00020" summary="- debug">
+      <created>1558081352076</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1558081352076</updated>
+    </task>
+    <task id="LOCAL-00021" summary="- fix the bug that only support 128bytes read">
+      <created>1558081752580</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1558081752580</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88121000" />
+    <option name="totallyTimeSpent" value="88674000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -415,7 +434,9 @@
     <MESSAGE value="some debug info" />
     <MESSAGE value="- fix deadlock between read and write of rwlock&#10;- refine the setrange" />
     <MESSAGE value="- remove debug info" />
-    <option name="LAST_COMMIT_MESSAGE" value="- remove debug info" />
+    <MESSAGE value="- debug" />
+    <MESSAGE value="- fix the bug that only support 128bytes read" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fix the bug that only support 128bytes read" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -478,13 +499,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/tikv/context.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
@@ -496,6 +510,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="100">
           <caret line="196" column="35" selection-start-line="196" selection-start-column="35" selection-end-line="196" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="369">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -513,14 +534,14 @@
     <entry file="file://$PROJECT_DIR$/src/redis_server.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="179">
-          <caret line="85" column="7" selection-start-line="85" selection-start-column="7" selection-end-line="85" selection-end-column="7" />
+          <caret line="35" column="55" selection-start-line="35" selection-start-column="55" selection-end-line="35" selection-end-column="55" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/executor.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="87" column="43" selection-start-line="87" selection-start-column="43" selection-end-line="87" selection-end-column="43" />
+        <state relative-caret-position="170">
+          <caret line="90" column="8" lean-forward="true" selection-start-line="90" selection-start-column="8" selection-end-line="90" selection-end-column="8" />
         </state>
       </provider>
     </entry>

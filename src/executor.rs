@@ -88,7 +88,7 @@ impl<E: DB> Executor<E>{
         /*for arg in &args{
             println!("{:?}", arg);
         }*/
-        println!("raw command {:?}", args);
+        //println!("raw command {:?}", args);
         assert!(args.len() > 2);
         self.op = self.get_op(&args);
     }
