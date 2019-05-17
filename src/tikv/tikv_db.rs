@@ -110,7 +110,7 @@ impl TikvDB {
             Err(Error::OperationError("No Value".to_string()))
         } else {
             let context = self.get_raw_context(&key, cf);
-            println!("put {} {}", String::from_utf8(key.clone()).unwrap(), String::from_utf8(value.clone()).unwrap());
+            //println!("put {} {}", String::from_utf8(key.clone()).unwrap(), String::from_utf8(value.clone()).unwrap());
             context.client().raw_put(context, key, value);
             Ok(())
         }
@@ -118,7 +118,7 @@ impl TikvDB {
 
     pub fn tikv_raw_get(&self, key: Key, cf: Option<String>)-> Option<Value>{
         let context = self.get_raw_context(&key, cf);
-        println!("get {}", String::from_utf8(key.clone()).unwrap());
+        //println!("get {}", String::from_utf8(key.clone()).unwrap());
         let v = context.client().raw_get(context, key);
         if v.is_empty(){
             println!("get failed");
