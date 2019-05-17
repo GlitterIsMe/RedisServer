@@ -105,7 +105,7 @@ impl Region {
     pub fn context(&self) -> Result<kvrpcpb::Context> {
         self.leader
             .as_ref()
-            .ok_or_else(|| Error::NotLeader)
+            .ok_or_else(|| Error::Other)
             .map(|l| {
                 let mut ctx = kvrpcpb::Context::default();
                 ctx.set_region_id(self.region.get_id());

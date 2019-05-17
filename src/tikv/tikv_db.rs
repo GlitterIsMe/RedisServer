@@ -105,7 +105,7 @@ impl TikvDB {
 
     pub fn tikv_raw_put(&self, key: Key, value: Value, cf: Option<String>) -> Result<()> {
         if value.is_empty() {
-            Err(Error::OpError)
+            Err(Error::OperationError("No Value".to_string()))
         } else {
             let context = self.get_raw_context(&key, cf);
             context.client().raw_put(context, key, value);
