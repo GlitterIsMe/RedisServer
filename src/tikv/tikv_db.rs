@@ -17,7 +17,7 @@ pub type Value = Vec<u8>;
 
 #[derive(Debug)]
 pub enum Error {
-    TiKVError(Stirng),
+    TiKVError(String),
     PdError(String),
     OperationError(String),
     Other,

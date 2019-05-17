@@ -194,7 +194,7 @@ impl PDClient{
     pub fn get_store(&self, store_id: u64) -> metapb::Store{
         let mut req = pdpb::GetStoreRequest::new();
         let mut header = pdpb::RequestHeader::new();
-        header.set_cluster_id(cluster_id);
+        header.set_cluster_id(self.cluster_id);
         req.set_header(header);
         req.set_store_id(store_id);
         self.leader.write().unwrap().client.get_store(&req).unwrap().take_store().into()
@@ -203,7 +203,7 @@ impl PDClient{
     fn get_region_and_leader(&self, key: &[u8]) -> (metapb::Region, Option<metapb::Peer>){
         let mut req = pdpb::GetRegionRequest::new();
         let mut header = pdpb::RequestHeader::new();
-        header.set_cluster_id(cluster_id);
+        header.set_cluster_id(self.cluster_id);
         req.set_header(header);
 
         req.set_region_key(key.to_owned());
