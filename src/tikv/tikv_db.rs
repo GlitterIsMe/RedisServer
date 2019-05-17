@@ -154,12 +154,12 @@ mod test{
     use crate::redis_server::DB;
 
     #[test]
-    fn new_tikv_db(){
+    fn test_tikv_new_db(){
         let end_point = vec!["127.0.0.1:2739".to_string()];
         let tikv_db = TikvDB::connect(end_point).unwrap();
     }
 
-    fn basic_put_get(){
+    fn test_tikv_basic_put_get(){
         let end_point = vec!["127.0.0.1:2739".to_string()];
         let mut tikv_db = TikvDB::connect(end_point).unwrap();
         let key = "foo".to_string();

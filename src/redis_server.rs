@@ -149,24 +149,6 @@ impl<E: DB> Server<E>{
         server
     }
 
-    /*fn start_server(&self, rx: Receiver<Executor<E>>){
-        let thread_pool = self.exec_pool.clone();
-        thread::spawn(move||{
-            loop{
-                match rx.recv(){
-                    Ok(ref mut executor) => {
-                        thread_pool.execute(||{
-                            executor.parse();
-                            executor.exec_command();
-                        });
-                    },
-                    Err(_) => (),
-                }
-            }
-        });
-    }*/
-
-
     pub fn new_connection(&mut self, stream: TcpStream){
         let client_id = self.client_seq + 1;
         let client = Client::new(self.db.clone(), client_id,  self.executor_tx.clone());

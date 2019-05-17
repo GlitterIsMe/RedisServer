@@ -399,7 +399,7 @@ mod tests{
     }
 
     #[test]
-    fn test_basic_put_get(){
+    fn test_executor_basic_put_get(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let put_command = gen_redis_code("set foo bar".to_string());
@@ -417,7 +417,7 @@ mod tests{
     }
 
     #[test]
-    fn test_multi_put_get(){
+    fn test_executor_multi_put_get(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let mset_command = gen_redis_code("mset foo1 bar1 foo2 bar2 foo3 bar3".to_string());
@@ -431,7 +431,7 @@ mod tests{
     }
 
     #[test]
-    fn test_strlen(){
+    fn test_executor_strlen(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let set_command = gen_redis_code("set foo bar".to_string());
@@ -446,7 +446,7 @@ mod tests{
 
 
     #[test]
-    fn test_getset(){
+    fn test_executor_getset(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let command1 = gen_redis_code("set foo bar".to_string());
@@ -464,7 +464,7 @@ mod tests{
     }
 
     #[test]
-    fn test_append(){
+    fn test_executor_append(){
         println!("init db");
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
@@ -486,7 +486,7 @@ mod tests{
     }
 
     #[test]
-    fn test_getrange(){
+    fn test_executor_getrange(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let command1 = gen_redis_code("set me 18696192030".to_string());
@@ -504,7 +504,7 @@ mod tests{
     }
 
     #[test]
-    fn test_setrange(){
+    fn test_executor_setrange(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
         let command1 = gen_redis_code("set me 18696192030".to_string());
