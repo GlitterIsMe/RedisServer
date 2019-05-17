@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cd30105b-0038-4053-a82c-2ef446bf41a5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/executor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/executor.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/redis_server.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/redis_server.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tikv/context.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/context.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tikv/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tikv/pd_client.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/pd_client.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tikv/tikv_client.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/tikv_client.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tikv/tikv_db.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tikv/tikv_db.rs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -47,7 +38,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Cargo.toml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
+            <state>
               <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
             </state>
           </provider>
@@ -76,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/tikv/tikv_db.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
+            <state relative-caret-position="-1552">
+              <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -88,17 +79,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tikv/pd_client.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2363">
-              <caret line="139" column="40" selection-start-line="139" selection-start-column="40" selection-end-line="139" selection-end-column="40" />
+            <state relative-caret-position="731">
+              <caret line="195" column="11" selection-start-line="195" selection-start-column="11" selection-end-line="195" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/tikv/tikv_client.rs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="66" column="32" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
+            <state relative-caret-position="1445">
+              <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -143,6 +134,7 @@
         <option value="$PROJECT_DIR$/src/tikv/context.rs" />
         <option value="$PROJECT_DIR$/src/tikv/tikv_db.rs" />
         <option value="$PROJECT_DIR$/src/tikv/pd_client.rs" />
+        <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/tikv/tikv_client.rs" />
       </list>
     </option>
@@ -167,17 +159,6 @@
             <path>
               <item name="redis-server" type="b2602c69:ProjectViewProjectNode" />
               <item name="redis-server" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="redis-server" type="b2602c69:ProjectViewProjectNode" />
-              <item name="redis-server" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="tikv" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -226,7 +207,7 @@
       <option name="presentableId" value="Default" />
       <updated>1557715037200</updated>
       <workItem from="1557715051608" duration="76416000" />
-      <workItem from="1558057457593" duration="597000" />
+      <workItem from="1558057457593" duration="2382000" />
     </task>
     <task id="LOCAL-00001" summary="simple redis server base on TiKV">
       <created>1557933686497</created>
@@ -235,14 +216,29 @@
       <option name="project" value="LOCAL" />
       <updated>1557933686497</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="build pass">
+      <created>1558059337038</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1558059337038</updated>
+    </task>
+    <task id="LOCAL-00003" summary="build pass">
+      <created>1558059359817</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1558059359817</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77013000" />
+    <option name="totallyTimeSpent" value="78798000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" id="Structure" order="0" sideWeight="0.56006765" side_tool="true" visible="true" weight="0.20530303" />
       <window_info id="Image Layers" order="1" />
@@ -280,7 +276,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="simple redis server base on TiKV" />
-    <option name="LAST_COMMIT_MESSAGE" value="simple redis server base on TiKV" />
+    <MESSAGE value="build pass" />
+    <option name="LAST_COMMIT_MESSAGE" value="build pass" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -335,7 +332,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Cargo.toml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
+        <state>
           <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
         </state>
       </provider>
@@ -350,6 +347,27 @@
     <entry file="file://$PROJECT_DIR$/src/tikv/mod.rs">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tikv/tikv_client.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="85" column="5" selection-start-line="85" selection-start-column="5" selection-end-line="85" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/tikv/pd_client.rs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="195" column="11" selection-start-line="195" selection-start-column="11" selection-end-line="195" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/tikv/context.rs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -359,22 +377,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/tikv/tikv_db.rs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tikv/pd_client.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2363">
-          <caret line="139" column="40" selection-start-line="139" selection-start-column="40" selection-end-line="139" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/tikv/tikv_client.rs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="66" column="32" selection-start-line="66" selection-start-column="32" selection-end-line="66" selection-end-column="32" />
+        <state relative-caret-position="-1552">
+          <caret line="49" column="38" selection-start-line="49" selection-start-column="38" selection-end-line="49" selection-end-column="38" />
         </state>
       </provider>
     </entry>
