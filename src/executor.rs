@@ -86,17 +86,16 @@ impl<E: DB> Executor<E>{
         //command_string = command_string.to_uppercase();
         let args: Vec<&str> = command_string.split("\r\n").collect();
         assert!(args.len() > 2);
-        println!("raw command {:?}", args);
+        //println!("raw command {:?}", args);
         self.op = self.get_op(&args);
     }
 
     fn get_op(&self, args: &Vec<&str>) -> Operation{
         let arg_num: u16 = args[0].trim_start_matches("*").parse().unwrap();
         println!("arg_num is {}", arg_num);
-        for arg in args{
+        /*for arg in args{
             println!("{:?}", arg);
-        }
-
+        }*/
         let op_str = args[2].to_uppercase();
         println!("OP[{}]", op_str);
         match op_str.as_ref(){
@@ -137,62 +136,6 @@ impl<E: DB> Executor<E>{
             _ => Operation::NotParsed,
 
         }
-        /*match arg_num{
-            1 => Operation::Other,
-
-            2 =>
-                match op_str.as_ref(){
-                    "GET" => Operation::Get(args[4].to_string()),
-                    "STRLEN" => Operation::StrLen(args[4].to_string()),
-                    _ => Operation::NotParsed,
-                },
-
-            3 =>
-                match op_str.as_ref(){
-                    "SET" => Operation::Set(args[4].to_string(), args[6].to_string(), false),
-                    "SETNX" => Operation::Set(args[4].to_string(), args[6].to_string(), true),
-                    "GETSET" => Operation::GetSet(args[4].to_string(), args[6].to_string()),
-                    "APPEND" => Operation::Append(args[4].to_string(), args[6].to_string()),
-                    _ => Operation::NotParsed,
-                },
-
-            4 =>
-                match op_str.as_ref(){
-                    "SETRANGE" => {
-                        let off: usize = args[6].parse().unwrap();
-                        Operation::SetRange(args[4].to_string(), off, args[8].to_string())
-                    },
-                    "GETRANGE" => {
-                        let start_off: usize = args[6].parse().unwrap();
-                        let end_off: usize = args[8].parse().unwrap();
-                        Operation::GetRange(args[4].to_string(), start_off, end_off)
-                    },
-                    _ => Operation::NotParsed,
-                }
-
-            _ =>
-                match op_str.as_ref(){
-                    "MSET" =>{
-                        let mut pos: usize = 4;
-                        let mut args_kv: Vec<(String, String)> = Vec::new();
-                        while pos < args.len(){
-                            args_kv.push((args[pos].to_string(), args[pos + 2].to_string()));
-                            pos += 4;
-                        }
-                        Operation::Mset(args_kv)
-                    },
-                    "MGET" =>{
-                        let mut pos: usize = 4;
-                        let mut args_kv: Vec<String> = Vec::new();
-                        while pos < args.len(){
-                            args_kv.push(args[pos].to_string());
-                            pos += 2;
-                        }
-                        Operation::Mget(args_kv)
-                    },
-                    _ => Operation::Other,
-                }
-        }*/
     }
 
     fn gen_multi_reply(&self, reply: Vec<String>) -> String{
