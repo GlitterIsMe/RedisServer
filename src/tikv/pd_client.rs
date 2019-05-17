@@ -41,7 +41,7 @@ fn try_connect_pd_client(
     let (client, r) = connect_pd_client(Arc::clone(&env), addr)?;
     let new_cluster_id = r.get_header().get_cluster_id();
     if new_cluster_id != cluster_id {
-        Err(Error::InOtherCluster)
+        Err(Error::PdError("Another Cluster".to_string()))
     } else {
         Ok((client, r))
     }
@@ -88,26 +88,9 @@ fn try_connect_pd_leader(
         }
     }
 
-    Err(Error::PDError)
+    Err(Error::PdError("Try connect leader failed".to_string()))
 }
 
-fn new_pd_request(cluster_id: u64) -> pdpb::GetRegionRequest{
-
-    let mut request = pdpb::GetRegionRequest::new();
-    let mut header = pdpb::RequestHeader::new();
-    header.set_cluster_id(cluster_id);
-    request.set_header(header);
-    request
-}
-
-fn new_pd_get_store_request(cluster_id: u64) -> pdpb::GetStoreRequest{
-
-    let mut request = pdpb::GetStoreRequest::new();
-    let mut header = pdpb::RequestHeader::new();
-    header.set_cluster_id(cluster_id);
-    request.set_header(header);
-    request
-}
 
 pub struct LeaderClient {
     pub client: pdpb::PdClient,
@@ -143,7 +126,8 @@ impl LeaderClient{
         let mut cluster_id = None;
         for ep in endpoints {
             if !endpoints_set.insert(ep) {
-                return Err(Error::DeduplicatedMember);
+                // 确保endpoint没有重复
+                return Err(Error::PdError("Deduplicated endpoint".to_string()));
             }
 
             let (_, resp) = match connect_pd_client(Arc::clone(&env), ep) {
@@ -160,7 +144,7 @@ impl LeaderClient{
             let cid = resp.get_header().get_cluster_id();
             if let Some(sample) = cluster_id {
                 if sample != cid {
-                    return Err(Error::PDError);
+                    return Err(Error::PdError("cluster id not match".to_string()));
                 }
             } else {
                 cluster_id = Some(cid);
@@ -177,7 +161,7 @@ impl LeaderClient{
                 println!("All PD endpoints are consistent: {:?}", endpoints);
                 Ok((client, members))
             }
-            _ => Err(Error::PDClientResponseFailed),
+            _ => Err(Error::PdError("PD Cient has no response".to_string())),
         }
     }
 
@@ -202,15 +186,30 @@ impl PDClient{
         })
     }
 
-    fn get_leader(&self) -> pdpb::Member {
-        self.leader.read().unwrap().members.get_leader().clone()
+    pub fn get_region(&self, key: &[u8]) -> Region{
+        let (region, leader) = self.get_region_and_leader(key);
+        Region::new(region, leader)
+    }
+
+    pub fn get_store(&self, store_id: u64) -> metapb::Store{
+        let mut req = pdpb::GetStoreRequest::new();
+        let mut header = pdpb::RequestHeader::new();
+        header.set_cluster_id(cluster_id);
+        req.set_header(header);
+        req.set_store_id(store_id);
+        self.leader.write().unwrap().client.get_store(&req).unwrap().take_store().into()
     }
 
     fn get_region_and_leader(&self, key: &[u8]) -> (metapb::Region, Option<metapb::Peer>){
-        let mut req = new_pd_request(self.cluster_id);
+        let mut req = pdpb::GetRegionRequest::new();
+        let mut header = pdpb::RequestHeader::new();
+        header.set_cluster_id(cluster_id);
+        req.set_header(header);
+
         req.set_region_key(key.to_owned());
         let key = req.get_region_key().to_owned();
         // 通过rpc调用去获得当前key的region
+        // TODO: handle error
         let mut res = self.leader.read().unwrap().client.get_region(&req).unwrap();
         let region = if res.has_region(){
             res.take_region()
@@ -228,14 +227,5 @@ impl PDClient{
         (region, leader)
     }
 
-    pub fn get_region(&self, key: &[u8]) -> Region{
-        let (region, leader) = self.get_region_and_leader(key);
-        Region::new(region, leader)
-    }
 
-    pub fn get_store(&self, store_id: u64) -> metapb::Store{
-        let mut req = new_pd_get_store_request(self.cluster_id);
-        req.set_store_id(store_id);
-        self.leader.write().unwrap().client.get_store(&req).unwrap().take_store().into()
-    }
 }

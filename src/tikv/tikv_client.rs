@@ -32,17 +32,7 @@ impl KVClient{
             address: addr.to_owned(),
         })
     }
-    pub fn raw_put(
-        &self,
-        context: RawContext,
-        key: Key,
-        value: Value,
-    ) {
-        let mut req = self.new_raw_put_req(context, key, value);
-        self.client.raw_put(&req);
-    }
-
-    fn new_raw_put_req(&self, context: RawContext, key: Key, value: Value) -> kvrpcpb::RawPutRequest{
+    pub fn raw_put(&self, context: RawContext, key: Key, value: Value) {
         let mut req = kvrpcpb::RawPutRequest::new();
         let (region, cf) = context.into_inner();
         req.set_context(region.into());
@@ -51,17 +41,22 @@ impl KVClient{
         }
         req.set_key(key);
         req.set_value(value);
-        req
+        // TODO: handle RawPutResponse
+        self.client.raw_put(&req);
     }
 
-    pub fn raw_get(
-        &self,
-        context: RawContext,
-        key: Key,
-    ) -> Value {
+    pub fn raw_get(&self, context: RawContext, key: Key)-> Value {
         // RawContext包含region、对应的kvclient、以及cf信息
         // raw_request宏是用于生成一个request
-        let mut req = self.new_raw_get_req(context, key);
+        let mut req = kvrpcpb::RawGetRequest::new();
+        let (region, cf) = context.into_inner();
+        req.set_context(region.into());
+        if let Some(cf) = cf {
+            req.set_cf(cf);
+        }
+        req.set_key(key);
+        // 通过TiKVClient就可以进行RPC调用
+        /// TODO: handle RawGetResponse
         match self.client.raw_get(&req){
             Ok(mut res) =>{
                 res.take_value()
@@ -70,18 +65,5 @@ impl KVClient{
                 vec![]
             }
         }
-
-        // 通过TiKVClient就可以进行RPC调用
-    }
-
-    fn new_raw_get_req(&self, context: RawContext, key: Key) -> kvrpcpb::RawGetRequest{
-        let mut req = kvrpcpb::RawGetRequest::new();
-        let (region, cf) = context.into_inner();
-        req.set_context(region.into());
-        if let Some(cf) = cf {
-            req.set_cf(cf);
-        }
-        req.set_key(key);
-        req
     }
 }

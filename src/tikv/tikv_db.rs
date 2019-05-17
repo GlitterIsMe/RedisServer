@@ -17,20 +17,16 @@ pub type Value = Vec<u8>;
 
 #[derive(Debug)]
 pub enum Error {
-    RpcConnectionError,
-    DeduplicatedMember,
-    PDClientResponseFailed,
-    InOtherCluster,
-    NotLeader,
-    PDError,
-    OpError,
+    TiKVError(Stirng),
+    PdError(String),
+    OperationError(String),
     Other,
 }
 
 pub type Result<T> = result::Result<T, Error>;
 
 
-struct TikvDB {
+pub struct TikvDB {
     pd: Arc<PDClient>,
     kvserver: Arc<RwLock<HashMap<String, Arc<KVClient>>>>,
     env: Arc<Environment>,
