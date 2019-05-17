@@ -33,7 +33,7 @@ impl<E: DB> Client<E>{
             loop{
                 let mut inited = false;
                 loop{
-                    let mut raw_command = vec![0; 128];
+                    let mut raw_command = vec![0; 40960];
                     let res= connection.read(&mut raw_command);
                     if inited{
                         match res{

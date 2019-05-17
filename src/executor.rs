@@ -85,9 +85,9 @@ impl<E: DB> Executor<E>{
         command_string = command_string.trim().to_string();
         //command_string = command_string.to_uppercase();
         let args: Vec<&str> = command_string.split("\r\n").collect();
-        for arg in &args{
+        /*for arg in &args{
             println!("{:?}", arg);
-        }
+        }*/
         println!("raw command {:?}", args);
         assert!(args.len() > 2);
         self.op = self.get_op(&args);
