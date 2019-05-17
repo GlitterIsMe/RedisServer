@@ -84,7 +84,4 @@ impl KVClient{
         req.set_key(key);
         req
     }
-
-
-
 }

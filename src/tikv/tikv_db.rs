@@ -151,6 +151,7 @@ impl DB for TikvDB{
 #[cfg(test)]
 mod test{
     use crate::tikv::tikv_db::TikvDB;
+    use crate::redis_server::DB;
 
     #[test]
     fn new_tikv_db(){
