@@ -155,12 +155,12 @@ mod test{
 
     #[test]
     fn test_tikv_new_db(){
-        let end_point = vec!["127.0.0.1:2739".to_string()];
+        let end_point = vec!["127.0.0.1:2379".to_string()];
         let tikv_db = TikvDB::connect(end_point).unwrap();
     }
 
     fn test_tikv_basic_put_get(){
-        let end_point = vec!["127.0.0.1:2739".to_string()];
+        let end_point = vec!["127.0.0.1:2379".to_string()];
         let mut tikv_db = TikvDB::connect(end_point).unwrap();
         let key = "foo".to_string();
         let value = "bar".to_string();
