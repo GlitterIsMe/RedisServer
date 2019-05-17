@@ -398,7 +398,7 @@ mod tests{
         executor.exec_command();
     }
 
-    /*#[test]
+    #[test]
     fn test_basic_put_get(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
@@ -442,10 +442,10 @@ mod tests{
 
         exec(db.clone(), strlen_command, tx.clone());
         assert_eq!(rx.recv().unwrap(), "+3\r\n".to_string());
-    }*/
+    }
 
 
-    /*#[test]
+    #[test]
     fn test_getset(){
         let db = simple_mem_db::SimpleMemDB::new();
         let db = Arc::new(RwLock::new(db));
@@ -461,9 +461,9 @@ mod tests{
 
         exec(db.clone(), command3, tx.clone());
         assert_eq!(rx.recv().unwrap(), "*1\r\n$4\r\nbar3\r\n".to_string());
-    }*/
+    }
 
-    /*#[test]
+    #[test]
     fn test_append(){
         println!("init db");
         let db = simple_mem_db::SimpleMemDB::new();
@@ -483,7 +483,7 @@ mod tests{
 
         exec(db.clone(), command3, tx.clone());
         assert_eq!(rx.recv().unwrap(), "*1\r\n$8\r\nworldbye\r\n".to_string());
-    }*/
+    }
 
     #[test]
     fn test_getrange(){

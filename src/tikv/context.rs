@@ -1,37 +1,37 @@
 use std::sync::Arc;
 use std::ops::{Deref, DerefMut};
 
+use protobuf;
 use kvproto::{kvrpcpb, metapb};
 
-use super::tikv_db::Result;
+use super::tikv_db::{Result, Key, Value, Error};
 use super::tikv_client::KVClient;
-use super::tikv_db::{Key, Value};
-
+use protobuf::Message;
 
 pub struct RawContext {
     region: RegionContext,
     client: Arc<KVClient>,
-    cf: Option<ColumnFamily>,
+    cf: Option<String>,
 }
 
 impl RawContext {
-    pub fn new(region: RegionContext, client: Arc<KVClient>, cf: Option<ColumnFamily>) -> Self {
+    pub fn new(region: RegionContext, client: Arc<KVClient>, cf: Option<String>) -> Self {
         RawContext { region, client, cf }
     }
 
-    pub fn client(&self) -> Arc<KvClient> {
+    pub fn client(&self) -> Arc<KVClient> {
         Arc::clone(&self.client)
     }
 
-    pub fn into_inner(self) -> (RegionContext, Option<ColumnFamily>) {
+    pub fn into_inner(self) -> (RegionContext, Option<String>) {
         (self.region, self.cf)
     }
 }
 
 
 pub struct RegionContext {
-    region: Region,
-    store: metapb::Store,
+    pub region: Region,
+    pub store: metapb::Store,
 }
 
 
@@ -91,9 +91,9 @@ impl Region {
         }
     }
 
-    pub fn switch_peer(&mut self, _to: StoreId) -> Result<()> {
+    /*pub fn switch_peer(&mut self, _to: StoreId) -> Result<()> {
         unimplemented!()
-    }
+    }*/
 
     pub fn contains(&self, key: &Key) -> bool {
         let key: &[u8] = key.as_ref();
@@ -105,7 +105,7 @@ impl Region {
     pub fn context(&self) -> Result<kvrpcpb::Context> {
         self.leader
             .as_ref()
-            .ok_or_else(|| Error::not_leader(self.region.get_id(), None))
+            .ok_or_else(|| Error::NotLeader)
             .map(|l| {
                 let mut ctx = kvrpcpb::Context::default();
                 ctx.set_region_id(self.region.get_id());
@@ -123,7 +123,7 @@ impl Region {
         self.region.get_end_key()
     }
 
-    pub fn ver_id(&self) -> RegionVerId {
+    /*pub fn ver_id(&self) -> RegionVerId {
         let region = &self.region;
         let epoch = region.get_region_epoch();
         RegionVerId {
@@ -131,9 +131,9 @@ impl Region {
             conf_ver: epoch.get_conf_ver(),
             ver: epoch.get_version(),
         }
-    }
+    }*/
 
-    pub fn id(&self) -> RegionId {
+    pub fn id(&self) -> u64 {
         self.region.get_id()
     }
 
@@ -142,7 +142,7 @@ impl Region {
             .as_ref()
             .map(Clone::clone)
             .map(Into::into)
-            .ok_or_else(|| Error::stale_epoch(None))
+            .ok_or_else(|| Error::Other)
     }
 
     pub fn meta(&self) -> metapb::Region {

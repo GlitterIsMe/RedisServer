@@ -80,7 +80,7 @@ pub enum DBError{
     Other,
 }
 
-pub trait DB: Send + Sync + Clone + 'static{
+pub trait DB: Send + Sync + 'static{
     fn raw_put(&mut self, key: String, value: String) -> Result<String, DBError>;
 
     fn raw_get(&self, key: String) -> Result<String, DBError>;

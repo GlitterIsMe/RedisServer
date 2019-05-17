@@ -1,16 +1,13 @@
 use std::{fmt, sync::Arc, time::Duration};
 use std::result;
 
-use futures::Future;
 use grpcio::{CallOption, Environment};
 use grpcio::ChannelBuilder;
-use kvproto::{errorpb, kvrpcpb, tikvpb_grpc::TikvClient};
-use protobuf;
+use kvproto::{errorpb, kvrpcpb, tikvpb::TikvClient};
+use protobuf::Message;
 
-use super::tikv_db::RawContext;
-use super::tikv_db::Key;
-use super::tikv_db::Value;
-use super::tikv_db::Result;
+use super::context::RawContext;
+use super::tikv_db::{Key, Value, Result};
 
 pub struct KVClient{
     client: Arc<TikvClient>,
@@ -45,15 +42,15 @@ impl KVClient{
         self.client.raw_put(&req);
     }
 
-    fn new_raw_put_req(&self, context: RawContext, key: Key, value: Value) -> RawPutRequest{
-        let mut req = RawPutRequest::new();
+    fn new_raw_put_req(&self, context: RawContext, key: Key, value: Value) -> kvrpcpb::RawPutRequest{
+        let mut req = kvrpcpb::RawPutRequest::new();
         let (region, cf) = context.into_inner();
         req.set_context(region.into());
         if let Some(cf) = cf {
-            req.set_cf(cf.into_inner());
+            req.set_cf(cf);
         }
-        req.set_key(key.into_inner());
-        req.set_value(key.into_inner());
+        req.set_key(key);
+        req.set_value(value);
         req
     }
 
@@ -65,19 +62,26 @@ impl KVClient{
         // RawContext包含region、对应的kvclient、以及cf信息
         // raw_request宏是用于生成一个request
         let mut req = self.new_raw_get_req(context, key);
-        let res = self.client.raw_get(&req);
-        res.take_value()
+        match self.client.raw_get(&req){
+            Ok(mut res) =>{
+                res.take_value()
+            },
+            Err(e) =>{
+                vec![]
+            }
+        }
+
         // 通过TiKVClient就可以进行RPC调用
     }
 
-    fn new_raw_get_req(&self, context: RawContext, key: Key) -> RawGetRequest{
-        let mut req = RawGetRequest::new();
+    fn new_raw_get_req(&self, context: RawContext, key: Key) -> kvrpcpb::RawGetRequest{
+        let mut req = kvrpcpb::RawGetRequest::new();
         let (region, cf) = context.into_inner();
         req.set_context(region.into());
         if let Some(cf) = cf {
-            req.set_cf(cf.into_inner());
+            req.set_cf(cf);
         }
-        req.set_key(key.into_inner());
+        req.set_key(key);
         req
     }
 
