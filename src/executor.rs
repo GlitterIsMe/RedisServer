@@ -246,19 +246,30 @@ impl<E: DB> Executor<E>{
     }
 
     fn getset(&mut self, key: String, value: String) -> String{
-        match self.db.read().unwrap().raw_get(key.clone()){
-            Ok(old_value) =>{
-                self.db.write().unwrap().raw_put(key, value).unwrap();
-                return format!("+{}\r\n", old_value);
-            },
+        let res;
+        {
+            res = self.db.read().unwrap().raw_get(key.clone())
+        }
 
-            Err(e) =>{
-                match e {
-                    DBError::NotFound => return "-FAILED NOT FOUND\r\n".to_string(),
-                    _ => return "-FAILED BY ERROR\r\n".to_string(),
+        {
+            match res{
+                Ok(old_value) =>{
+                    self.db.write().unwrap().raw_put(key, value).unwrap();
+                    return format!("+{}\r\n", old_value);
+                },
+
+                Err(e) =>{
+                    match e {
+                        DBError::NotFound => {
+                            self.db.write().unwrap().raw_put(key, value.clone()).unwrap();
+                            return format!("+{}\r\n", value);
+                        },
+                        _ => return "-FAILED BY ERROR\r\n".to_string(),
+                    }
                 }
             }
         }
+
     }
 
     fn strlen(&self, key: String) -> String{
@@ -277,19 +288,26 @@ impl<E: DB> Executor<E>{
     }
 
     fn append(&mut self, key: String, value: String) -> String{
-        match self.db.read().unwrap().raw_get(key.clone()){
-            Ok(old_value) =>{
-                self.db.write().unwrap().raw_put(key, old_value + &value).unwrap();
-                return "+OK\r\n".to_string();
-            },
+        let res;
+        {
+            res = self.db.read().unwrap().raw_get(key.clone());
+        }
+        {
+            match res{
+                Ok(old_value) =>{
+                    self.db.write().unwrap().raw_put(key, old_value + &value).unwrap();
+                    return "+OK\r\n".to_string();
+                },
 
-            Err(e) =>{
-                match e {
-                    DBError::NotFound => return "-FAILED NOT FOUND\r\n".to_string(),
-                    _ => return "-FAILED BY ERROR\r\n".to_string(),
+                Err(e) =>{
+                    match e {
+                        DBError::NotFound => return "-FAILED NOT FOUND\r\n".to_string(),
+                        _ => return "-FAILED BY ERROR\r\n".to_string(),
+                    }
                 }
             }
         }
+
     }
 
     fn get_range(&self, key: String, start: i32, end: i32) -> String{
@@ -341,31 +359,48 @@ impl<E: DB> Executor<E>{
     }
 
     fn set_range(&mut self, key: String, off: usize, data: String) -> String{
-        match self.db.read().unwrap().raw_get(key.clone()){
-            Ok(old_value) =>{
-                let mut new_value = old_value.clone();
-                if off > new_value.len(){
-                    let nil: Vec<u8> = vec![0; off - new_value.len()];
-                    let nil = String::from_utf8(nil).unwrap();
-                    new_value += &nil;
-                    new_value += &data;
+        let res;
+        {
+            res = self.db.read().unwrap().raw_get(key.clone());
+        }
 
-                }else{
-                    //println!("off is {}, data.len() is {}", off, data.len());
-                    new_value.replace_range(off..(off + data.len()), &data);
-                }
-                let new_len = new_value.len();
-                self.db.write().unwrap().raw_put(key, new_value).unwrap();
-                return format!("+{}\r\n", new_len);
-            },
+        {
+            match res{
+                Ok(old_value) =>{
+                    let mut new_value = old_value.clone();
+                    if off >= new_value.len(){
+                        // off execeeds len of old value and write "0" bytes
+                        let nil: Vec<u8> = vec![0; off - new_value.len()];
+                        let nil = String::from_utf8(nil).unwrap();
+                        new_value += &nil;
+                        new_value += &data;
+                    }else if off + data.len() >= new_value.len(){
+                        new_value.truncate(off);
+                        new_value += &data;
+                    }else{
+                        println!("value is {}, off is {}, data.len() is {}",old_value, off, data.len());
+                        new_value.replace_range(off..(off + data.len()), &data);
+                    }
+                    let new_len = new_value.len();
+                    self.db.write().unwrap().raw_put(key, new_value).unwrap();
+                    return format!("+{}\r\n", new_len);
+                },
 
-            Err(e) =>{
-                match e {
-                    DBError::NotFound => return "-FAILED NOT FOUND\r\n".to_string(),
-                    _ => return "-FAILED BY ERROR\r\n".to_string(),
+                Err(e) =>{
+                    match e {
+                        DBError::NotFound => {
+                            let nil: Vec<u8> = vec![0; off];
+                            let nil = String::from_utf8(nil).unwrap();
+                            let new_value = nil + &data;
+                            self.db.write().unwrap().raw_put(key, new_value.clone()).unwrap();
+                            return format!("+{}\r\n", new_value.len());
+                        },
+                        _ => return "-FAILED BY ERROR\r\n".to_string(),
+                    }
                 }
             }
         }
+
     }
 }
 
@@ -457,10 +492,10 @@ mod tests{
         assert_eq!(rx.recv().unwrap(), "+OK\r\n".to_string());
 
         exec(db.clone(), command2, tx.clone());
-        assert_eq!(rx.recv().unwrap(), "*1\r\n$3\r\nbar\r\n".to_string());
+        assert_eq!(rx.recv().unwrap(), "+bar\r\n".to_string());
 
         exec(db.clone(), command3, tx.clone());
-        assert_eq!(rx.recv().unwrap(), "*1\r\n$4\r\nbar3\r\n".to_string());
+        assert_eq!(rx.recv().unwrap(), "+bar3\r\n".to_string());
     }
 
     #[test]
@@ -509,7 +544,8 @@ mod tests{
         let db = Arc::new(RwLock::new(db));
         let command1 = gen_redis_code("set me 18696192030".to_string());
         let command2 = gen_redis_code("setrange me 4 00".to_string());
-        let command3 = gen_redis_code("getrange me 11 ++++++".to_string());
+        let command3 = gen_redis_code("setrange me 11 ++++++".to_string());
+        let command4 = gen_redis_code("setrange empty 5 hahhaha".to_string());
         let (tx, rx) = channel();
         exec(db.clone(), command1, tx.clone());
         assert_eq!(rx.recv().unwrap(), "+OK\r\n".to_string());
@@ -519,5 +555,8 @@ mod tests{
 
         exec(db.clone(), command3, tx.clone());
         assert_eq!(rx.recv().unwrap(), "+17\r\n".to_string());
+
+        exec(db.clone(), command4, tx.clone());
+        assert_eq!(rx.recv().unwrap(), "+12\r\n".to_string());
     }
 }
