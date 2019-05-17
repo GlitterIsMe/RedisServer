@@ -164,7 +164,7 @@ mod test{
         let mut tikv_db = TikvDB::connect(end_point).unwrap();
         let key = "foo".to_string();
         let value = "bar".to_string();
-        assert_eq!(tikv_db.raw_put(key, value).unwrap(), "OK".to_string());
-        assert_eq!(tikv_db.raw_get(key).unwrap(), "bar".to_string());
+        assert_eq!(tikv_db.raw_put(key.clone(), value).unwrap(), "OK".to_string());
+        assert_eq!(tikv_db.raw_get(key.clone()).unwrap(), "bar".to_string());
     }
 }
