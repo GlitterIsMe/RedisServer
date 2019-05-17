@@ -44,9 +44,11 @@ impl TikvDB {
         );
         // 与pd连接
         let pd = Arc::new(PDClient::new(Arc::clone(&env), &end_points, )?);
+        println!("connect to PD@[{:?}]", end_points);
         // 与tikv连接
         let tikv = Default::default();
 
+        println!("new tikvdb");
         Ok(TikvDB{
             pd,
             kvserver: tikv,
@@ -108,6 +110,7 @@ impl TikvDB {
             Err(Error::OperationError("No Value".to_string()))
         } else {
             let context = self.get_raw_context(&key, cf);
+            println!("put {} {}", String::from_utf8(key.clone()), String::from_utf8(value.clone()));
             context.client().raw_put(context, key, value);
             Ok(())
         }
@@ -115,8 +118,10 @@ impl TikvDB {
 
     pub fn tikv_raw_get(&self, key: Key, cf: Option<String>)-> Option<Value>{
         let context = self.get_raw_context(&key, cf);
+        println!("get {}", String::from_utf8(key.clone()));
         let v = context.client().raw_get(context, key);
         if v.is_empty(){
+            println!("get failed");
             None
         }else{
             Some(v)
